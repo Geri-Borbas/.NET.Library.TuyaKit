@@ -95,18 +95,18 @@ It shows a `bool` switch on `["dps"]["1"]` and a countdown value (seconds) on `[
 
 ## Implementing a device
 
-After you created a `Device` instance, you can send any JSON data to it using a `Request` object.
+After you created a [`Device`](https://github.com/eppz/.NET.Library.TuyaKit/blob/master/Tuya/Device.cs) instance, you can send any JSON data to it using a [`Request`](https://github.com/eppz/.NET.Library.TuyaKit/blob/master/Tuya/Request.cs) object.
 
 ```C#
 // Get device properties.
 JObject response = await new Request().SendJSONObjectForCommandToDevice(
     new Dictionary<string, object>
     {
-        ["gwId"] = this.gwId,
-        ["devId"] = this.devId
+        ["gwId"] = socket.gwId,
+        ["devId"] = socket.devId
     },
     Request.Command.GetStatus,
-    this);
+    socket);
 ```
 
 A [Woox R4026 Smart Plug](http://www.wooxhome.com/r4026/) responds with a status like below:
@@ -121,11 +121,11 @@ A [Woox R4026 Smart Plug](http://www.wooxhome.com/r4026/) responds with a status
 }
 ```
 
-It gives you a status report according the very same control schema obtained above. To cut boilerplate, it is wrapped into a simple `Get()` method in  `Device` class that gives you back only the `dps` data you care about.
+It gives you a status report according the very same control schema obtained above. To cut boilerplate, it is wrapped into a simple [`Get()`](https://github.com/eppz/.NET.Library.TuyaKit/blob/master/Tuya/Device.cs#L40) method in  [`Device`](https://github.com/eppz/.NET.Library.TuyaKit/blob/master/Tuya/Device.cs) class that gives you back only the `dps` data you care about.
 
 ```C#
 // Get device properties.
-Dictionary<string, object> dps = await Get();
+Dictionary<string, object> dps = await socket.Get();
 ```
 
 ```
@@ -135,11 +135,11 @@ Dictionary<string, object> dps = await Get();
 }
 ```
 
-To set `dps` you can use `Device.Set()`.
+To set `dps` you can use [`Device.Set()`](https://github.com/eppz/.NET.Library.TuyaKit/blob/master/Tuya/Device.cs#L56).
 
 ```C#
 // Set device properties.
-await Set(
+await socket.Set(
     new Dictionary<string, object>
     {
         ["1"] = false,
@@ -148,7 +148,7 @@ await Set(
 );
 ```
 
-Once you have a specific device, you can wrap up `dps` all communication into a `Device` subclass (see `Woox_R4026.cs` for more).
+Once you have a specific device, you can wrap up `dps` all communication into a [`Device`](https://github.com/eppz/.NET.Library.TuyaKit/blob/master/Tuya/Device.cs) subclass (see [`Woox_R4026.cs`](https://github.com/eppz/.NET.Library.TuyaKit/blob/master/Tuya/Devices/Woox_R4026.cs) for more).
 
 ```C#
 ...

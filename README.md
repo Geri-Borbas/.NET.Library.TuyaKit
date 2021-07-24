@@ -8,14 +8,14 @@ socket = new Woox_R4026()
 {
     IP = "192.168.0.100",
     port = 6668,
-    protocolVersion = "3.1",
+    protocolVersion = "3.1", //3.3
     name = "Lounge Light Socket",
     devId = "<DEV_ID>",
     localKey = "<LOCAL_KEY>"
 };
 
 // ...you can simply set states via device wrapper.
-socket.TurnOn();
+socket.TurnOnAuto(socket); 
 ```
 
 ![Woox ](https://images-na.ssl-images-amazon.com/images/I/51p06M8jJHL._SY355_.jpg)
@@ -24,6 +24,8 @@ socket.TurnOn();
 ## Credits
 
 Based on [Max Isom](https://maxisom.me/)'s reverse engineered [**TuyAPI**](https://github.com/codetheweb/tuyapi) library (and corresponding [TuyaCore](https://github.com/Marcus-L/m4rcus.TuyaCore) .NET port by [Marcus Lum](https://m4rc.us/)).
+
+Protocol 3.3 support added by [RealIndica](https://github.com/RealIndica).
 
 
 ## Tuya services
